@@ -110,3 +110,4 @@ SELECT billing_country, SUM(total) FROM invoices GROUP BY billing_country ORDER 
 
 -- A list of the top 5 countries by average invoice size
 SELECT billing_country, AVG(total) FROM invoices GROUP BY billing_country ORDER BY AVG(total) DESC LIMIT 5;
+
