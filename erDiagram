@@ -1,0 +1,28 @@
+erDiagram
+    CUSTOMER {
+        int customer_id PK
+        string name
+        string email
+    }
+
+    ORDER {
+        int order_id PK
+        date order_date
+        int customer_id FK
+    }
+
+    PRODUCT {
+        int product_id PK
+        string name
+        float price
+    }
+
+    ORDER_PRODUCT {
+        int order_id PK
+        int product_id PK
+        int quantity
+    }
+
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--o{ ORDER_PRODUCT : contains
+    PRODUCT ||--o{ ORDER_PRODUCT : part_of
