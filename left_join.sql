@@ -32,27 +32,14 @@ GROUP BY employees.id;
 --   FROM TableA LEFT JOIN TableB
 -- **IS NOT THE SAME AS**
 --   FROM TableB LEFT JOIN TableA
+-- This is an example of a RIGHT JOIN.
 
--- In any join (inner, left, or anything else) there are three components:
---   1. The left table
---   2. The right table
---   3. The join condition
--- An INNER JOIN returns only those rows from the left and right tables that
--- match the join condition.  A LEFT join returns all rows from the left table
--- no matter what, and any rows from the right table that match the join condition.
--- In other words, in an INNER JOIN, if a table in the left row doesn't have
--- a corresponding row in the right table then that row (in the left table)
--- won't be returned, whereas it WILL be returned in the result set using
--- a LEFT JOIN.
-
--- You can see this in the COUNT queries above, but more clearly, here:
--- This will return nothing since there are no customers who have Employee #1
--- as a customer service rep.  Remember, "INNER JOIN" is the same as "JOIN"
-SELECT *
-FROM employees
-INNER JOIN customers
+SELECT employees.id, employees.first_name, employees.last_name,
+  COUNT(DISTINCT(customers.id)) AS customers_served
+FROM employeess
+RIGHT JOIN customers
   ON (employees.id = customers.support_rep_id)
-WHERE employees.id = 1;
+GROUP BY employees.id;
 
 -- This will return a SINGLE row, even though there are no corresponding customers.
 -- The fields from the customers table are displayed as empty (or NULL), telling
@@ -65,6 +52,11 @@ WHERE employees.id = 1;
 
 -- Employees is the left table, customers is the right table, and the join
 -- condition is employees.id = customers.support_rep_id.
+
+SELECT Employees.*, Customers.*
+FROM Employees
+LEFT JOIN Customers
+ON Employees.id = Customers.support_rep_id;
 
 -- One handy thing is that this allows us to create queries like...
 -- Show me all employees who don't support any customers
